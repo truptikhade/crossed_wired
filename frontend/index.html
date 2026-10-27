@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crossed Wires</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Crossed Wires</h1>
+  <div class="row">
+    <input id="room" placeholder="Room code, e.g. kitchen-table" autocomplete="off">
+    <button id="join" class="primary">Join</button>
+  </div>
+  <div class="langs">
+    <div><label for="me">I speak</label><select id="me"></select></div>
+    <div><label for="them">They speak</label><select id="them"></select></div>
+  </div>
+  <span id="status"></span>
+</header>
+
+<div id="log"></div>
+
+<div id="composer">
+  <div class="hint">Send anytime, even mid-sentence. Their messages never clear your draft. Taking something back strikes it through; it stays on the record.</div>
+  <div class="inner">
+    <textarea id="box" rows="1" placeholder="Say it. Interrupt if you want."></textarea>
+    <button id="mic" title="Dictate in your language">Mic</button>
+    <button id="send" class="primary">Send</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
