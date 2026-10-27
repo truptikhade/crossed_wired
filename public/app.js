@@ -1,4 +1,9 @@
-const API = "https://YOUR-BACKEND.vercel.app";
+const API =
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1" ||
+  location.hostname.startsWith("192.168.")
+    ? `http://${location.hostname}:8000`
+    : "https://crossed-wired-nnm2.vercel.app";
 
 const LANGS = [
   ["en-US", "English"],
