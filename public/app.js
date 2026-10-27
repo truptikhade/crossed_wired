@@ -1,9 +1,4 @@
-const API =
-  location.hostname === "localhost" ||
-  location.hostname === "127.0.0.1" ||
-  location.hostname.startsWith("192.168.")
-    ? `http://${location.hostname}:8000`
-    : "https://crossed-wired-nnm2.vercel.app";
+const API = window.API_BASE_URL || "http://127.0.0.1:8000";
 
 const LANGS = [
   ["en-US", "English"],

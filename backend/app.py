@@ -1,14 +1,22 @@
+import json
 import os
 import random
 import re
 import threading
 import time
+from pathlib import Path
 from urllib.parse import quote
 
 import requests
-from flask import Flask, jsonify, request
+from dotenv import dotenv_values
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
+PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
+PUBLIC_ENV = dotenv_values(PUBLIC_DIR / ".env")
+API_BASE_URL = (
+    os.environ.get("API_BASE_URL") or PUBLIC_ENV.get("API_BASE_URL") or ""
+).strip().rstrip("/")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 MODELS = [
     m.strip()
@@ -27,6 +35,30 @@ app = Flask(__name__)
 CORS(app)  # lets the separately hosted frontend call this API
 lock = threading.Lock()
 rooms = {}  # room code -> {"seq": int, "events": [dict]}
+
+
+@app.get("/")
+def frontend_index():
+    return send_from_directory(PUBLIC_DIR, "index.html")
+
+
+@app.get("/app.js")
+def frontend_app():
+    return send_from_directory(PUBLIC_DIR, "app.js")
+
+
+@app.get("/style.css")
+def frontend_styles():
+    return send_from_directory(PUBLIC_DIR, "style.css")
+
+
+@app.get("/config.js")
+def frontend_config():
+    return (
+        f"window.API_BASE_URL = {json.dumps(API_BASE_URL)};\n",
+        200,
+        {"Content-Type": "application/javascript; charset=utf-8"},
+    )
 
 
 def room_for(code):

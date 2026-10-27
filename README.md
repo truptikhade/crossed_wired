@@ -6,7 +6,7 @@ Two people, two languages, one room. Each person types or dictates in their own 
 
 - `backend/app.py`: Flask server. Holds rooms in memory, relays messages, and translates with the Gemini API.
 - `backend/requirements.txt`: Python dependencies.
-- `frontend/`: plain HTML, CSS and JavaScript. No build step.
+- `public/`: plain HTML, CSS and JavaScript, served by Flask. No build step.
 
 ## Run it
 
@@ -30,6 +30,9 @@ python app.py
 - `GEMINI_API_KEY`: required for translation. Without it, messages still send but show "translation unavailable." Create a key in [Google AI Studio](https://aistudio.google.com/apikey); keep it private and do not commit it.
 - `TRANSLATE_MODELS`: optional comma-separated Gemini models to try in order. Defaults to `gemini-3.8-flash`.
 - `PORT`: optional, defaults to `8000`.
+- `API_BASE_URL`: optional public URL used by the browser to reach the API. It defaults to the existing production URL, and can be set in `public/.env` for local runs or as a deployment environment variable. This value is public configuration, not a secret.
+
+The Flask server serves the frontend and injects `API_BASE_URL` through `/config.js`. Set the variable in the deployment platform's environment settings when deploying; `.env` files are ignored by Git and should not be relied on as deployment artifacts.
 
 ## Known limits
 
