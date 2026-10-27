@@ -1,8 +1,7 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }],
   "functions": {
     "api/index.py": {
-      "includeFiles": "{frontend/**,backend/app.py}"
+      "includeFiles": "backend/app.py"
     }
   }
 }

@@ -126,16 +126,6 @@ def translate_text(text, source, target):
     raise last_error
 
 
-@app.get("/")
-def index():
-    return send_from_directory(FRONTEND, "index.html")
-
-
-@app.get("/<path:name>")
-def static_files(name):
-    return send_from_directory(FRONTEND, name)
-
-
 @app.post("/api/rooms/<code>/messages")
 def post_message(code):
     if not valid_room(code):
