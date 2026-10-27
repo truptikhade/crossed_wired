@@ -1,3 +1,5 @@
+const API = "https://YOUR-BACKEND.vercel.app";
+
 const LANGS = [
   ["en-US", "English"],
   ["hi-IN", "Hindi"],
@@ -86,7 +88,7 @@ async function poll() {
   if (!state.room) return;
   try {
     const r = await fetch(
-      `/api/rooms/${encodeURIComponent(state.room)}/events?after=${state.after}`,
+      `${API}/api/rooms/${encodeURIComponent(state.room)}/events?after=${state.after}`,
     );
     if (!r.ok) throw new Error(r.status);
     const { events } = await r.json();
@@ -139,7 +141,7 @@ async function translateInto(m) {
   m.tr = null;
   render();
   try {
-    const r = await fetch("/api/translate", {
+    const r = await fetch(`${API}/api/translate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -186,7 +188,7 @@ async function send() {
   add(m);
   try {
     const r = await fetch(
-      `/api/rooms/${encodeURIComponent(state.room)}/messages`,
+      `${API}/api/rooms/${encodeURIComponent(state.room)}/messages`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -215,7 +217,7 @@ async function retract(id) {
   render();
   try {
     const r = await fetch(
-      `/api/rooms/${encodeURIComponent(state.room)}/retract`,
+      `${API}/api/rooms/${encodeURIComponent(state.room)}/retract`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -6,10 +6,9 @@ import time
 from urllib.parse import quote
 
 import requests
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND = os.path.join(APP_DIR, "..", "frontend")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 MODELS = [
     m.strip()
@@ -25,6 +24,7 @@ RETRYABLE = {429, 500, 502, 503, 504}
 ROOM_RE = re.compile(r"^[A-Za-z0-9_-]{3,32}$")
 
 app = Flask(__name__)
+CORS(app)  # lets the separately hosted frontend call this API
 lock = threading.Lock()
 rooms = {}  # room code -> {"seq": int, "events": [dict]}
 
