@@ -1,4 +1,4 @@
-const API = window.API_BASE_URL || "http://127.0.0.1:8000";
+const API = window.API_BASE_URL || "https://crossed-wired-nnm2.vercel.app";
 
 const LANGS = [
   ["en-US", "English"],
